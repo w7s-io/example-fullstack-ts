@@ -20,6 +20,21 @@ npm run build
 
 before uploading the repo archive to W7S.
 
+## How The W7S Action Works
+
+The deploy workflow uses `w7s-io/w7s-cloud@v1`:
+
+```yaml
+- name: Deploy
+  uses: w7s-io/w7s-cloud@v1
+  with:
+    token: ${{ github.token }}
+    install-command: npm ci
+    build-command: npm run build
+```
+
+The action runs the install and build commands, zips the repository, and sends it to the W7S deploy API. W7S verifies the deploy with the repository's GitHub token, publishes `backend/index.js` as the Worker backend, publishes `frontend/dist` as static assets, and attaches the hostname from `frontend/CNAME`.
+
 ## Local Commands
 
 ```sh
